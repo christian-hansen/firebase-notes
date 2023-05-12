@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "notes-84336": {
+      "hosting": {
+        "firebase-notes": [
+          "notes-84336"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "notes-84336"
+  }
+}

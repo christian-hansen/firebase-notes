@@ -1,0 +1,21 @@
+ul {
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+input {
+    width: calc(100% - 4px - 3.2px);
+}
+
+button {
+    width: 100%;
+}
+
+.pointer {
+    cursor: pointer;
+}
