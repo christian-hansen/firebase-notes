@@ -1,9 +1,1 @@
-<h1>Notes</h1>
-
-<input [(ngModel)]="notetext" type="text">
-<button (click)="addNote()">Add</button>
-
-<ul>
-  <li *ngFor="let note of notes$ | async;"> {{ note['id'] }} {{ note['title'] }} {{ note['description'] }}
-  <div class="pointer" (click)="deleteNote(note['id'])">X</div></li>
-</ul>
+<app-notes>

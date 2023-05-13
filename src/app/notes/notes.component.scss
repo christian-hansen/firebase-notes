@@ -1,0 +1,66 @@
+.content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  ul {
+    padding: 0;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.725);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+  }
+  
+  .dialogcontent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 250px;
+    background-color: white;
+    border: 1px solid lightgray;
+  
+    input {
+      width: calc(90% - 7px);
+    }
+  
+    button {
+      width: 90%;
+    }
+  
+    .close {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      color: rgb(27, 26, 26);
+    }
+  }
+  
+  .pointer {
+    cursor: pointer;
+  }
+  
+  .d-none {
+      display: none;
+  }
