@@ -1,18 +1,25 @@
 <div class="content">
     <h1>Notes</h1>
-  
-    <div class="dialog d-none">
-      <div class="dialogcontent">
-      <input [(ngModel)]="notetext" type="text">
-      <button (click)="addNote()">Add</button>
-      <div class="close pointer">Close</div>
-      </div>
+
+    <button style="margin-bottom: 20px;" (click)="dialog.classList.remove('d-none')">Create Note</button>
+
+    <div #dialog class="dialog d-none">
+        <div class="dialogcontent">
+            <input [(ngModel)]="notetext" type="text">
+            <button (click)="addNote()">Add</button>
+            <div class="close pointer" (click)="dialog.classList.add('d-none')">Close</div>
+        </div>
     </div>
-  
-  
-    <ul>
-      <li *ngFor="let note of notes$ | async;"> {{ note['id'] }} {{ note['title'] }} {{ note['description'] }}
-        <div class="pointer" (click)="deleteNote(note['id'])">X</div>
-      </li>
-    </ul>
-  </div>
+
+    <div class="notecontainer" *ngFor="let note of notes$ | async;">
+        <div class="noteheadline">{{ note['title'] }}</div>
+        <div class="notedescription">{{ note['description'] }}</div>
+        <div class="noteactionbar">
+            <div>{{ note['id'] }}</div>
+            <div>Edit</div>
+            <div>Archive</div>
+            <div (click)="deleteNote(note['id'])">Delete</div>
+        </div>
+    </div>
+
+</div>

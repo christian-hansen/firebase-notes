@@ -1,3 +1,37 @@
 body {
+    position: relative;
     margin: 0;
 }
+
+app-root {
+    position: relative;
+    // min-width: 100vw;
+    // min-height: 100vh;
+}
+
+app-sidebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 8px;
+    height: 24px;
+    width: calc(100% - 16px);
+    background-color: lightgrey;
+    z-index: 99;
+
+    div {
+        cursor: pointer;
+    }
+}
+
+
+.pointer {
+    cursor: pointer;
+  }
+  
+  .d-none {
+      display: none;
+  }

@@ -1,66 +1,86 @@
 .content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.dialog {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.725);
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.dialogcontent {
+  position: relative;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 250px;
+  background-color: white;
+  border: 1px solid lightgray;
+
+  input {
+    width: calc(90% - 7px);
   }
-  
-  ul {
-    padding: 0;
-  }
-  
-  li {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  .dialog {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.725);
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-  }
-  
-  .dialogcontent {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+  button {
     width: 90%;
-    height: 250px;
-    background-color: white;
-    border: 1px solid lightgray;
-  
-    input {
-      width: calc(90% - 7px);
-    }
-  
-    button {
-      width: 90%;
-    }
-  
-    .close {
-      position: absolute;
-      right: 5px;
-      top: 5px;
-      color: rgb(27, 26, 26);
-    }
   }
-  
-  .pointer {
+
+  .close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: rgb(27, 26, 26);
+  }
+}
+
+.notecontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 10px;
+  width: 80%;
+  margin-bottom: 16px;
+}
+
+.noteheadline {
+  font-size: 24px;
+  padding: 8px;
+}
+
+.notedescription {
+  padding: 8px;
+}
+
+.noteactionbar {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  padding: 8px;
+  gap: 16px;
+
+  div {
     cursor: pointer;
   }
-  
-  .d-none {
-      display: none;
-  }
+}
+
+.d-none {
+  display: none;
+}
