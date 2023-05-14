@@ -4,7 +4,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  gap: 20px;
+  padding-top: 80px;
+  padding-bottom: 110px;
 }
 
 .dialog {
@@ -16,7 +18,7 @@
   // justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.725);
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   z-index: 1;
 }
@@ -28,23 +30,33 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  height: 250px;
+  width: 80%;
+  padding: 40px 20px;
   background-color: white;
   border: 1px solid lightgray;
+  border-radius: 10px;
 
-  input {
+  input,
+  textarea {
+    font-size: 32px;
+    font-family: inherit;
     width: calc(90% - 7px);
+    border: none;
+    resize: none;
   }
 
-  button {
-    width: 90%;
+  .btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 80%;
   }
 
   .close {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 15px;
+    top: 15px;
     color: rgb(27, 26, 26);
   }
 }
@@ -56,8 +68,7 @@
   border: 1px solid lightgray;
   border-radius: 10px;
   padding: 10px;
-  width: 80%;
-  margin-bottom: 16px;
+  width: 90%;
 }
 
 .noteheadline {
@@ -69,6 +80,17 @@
   padding: 8px;
 }
 
+.notebottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+
+  .noteidentifier {
+    font-size: 12px;
+  }
+}
+
 .noteactionbar {
   display: flex;
   align-items: center;
@@ -78,6 +100,10 @@
 
   div {
     cursor: pointer;
+
+    img {
+      height: 16px;
+    }
   }
 }
 

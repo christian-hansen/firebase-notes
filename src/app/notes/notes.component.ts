@@ -12,6 +12,7 @@ export class NotesComponent {
   notes$: Observable<any>; // Observable is a variable that updates. Any could also be String, Number etc. but as it is a JSON we use "any". The $ is a mark to identify variables that update
   // firestore: Firestore = inject(Firestore); // with this we import Firestore
   notes: Array<any>;
+  noteheadline = '';
   notetext = '';
 
   constructor(private readonly firestore: Firestore) {
@@ -27,7 +28,7 @@ export class NotesComponent {
   addNote() {
     const itemCollection = collection(this.firestore, 'notes');
     const itemID = 'note' + JSON.stringify(this.notes.length);
-    const note = {title: this.notetext, description: '', id: itemID};
+    const note = {title: this.noteheadline, description: this.notetext, id: itemID};
     setDoc(doc(itemCollection, itemID), note);
     this.clearInput();
   }
@@ -39,6 +40,7 @@ export class NotesComponent {
 
   clearInput() {
     this.notetext = '';
+    this.noteheadline = '';
   }
 }
 

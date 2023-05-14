@@ -1,12 +1,11 @@
 <div class="content">
-    <h1>Notes</h1>
-
-    <button style="margin-bottom: 20px;" (click)="dialog.classList.remove('d-none')">Create Note</button>
+    <button (click)="dialog.classList.remove('d-none')">Create Note</button>
 
     <div #dialog class="dialog d-none">
         <div class="dialogcontent">
-            <input [(ngModel)]="notetext" type="text">
-            <button (click)="addNote()">Add</button>
+            <input [(ngModel)]="noteheadline" type="text" placeholder="Enter a title">
+            <textarea [(ngModel)]="notetext" placeholder="Enter a description" rows="5"></textarea>
+            <div class="btn-container"><button>Clear</button><button (click)="addNote()">Add</button></div>
             <div class="close pointer" (click)="dialog.classList.add('d-none')">Close</div>
         </div>
     </div>
@@ -14,11 +13,13 @@
     <div class="notecontainer" *ngFor="let note of notes$ | async;">
         <div class="noteheadline">{{ note['title'] }}</div>
         <div class="notedescription">{{ note['description'] }}</div>
-        <div class="noteactionbar">
-            <div>{{ note['id'] }}</div>
-            <div>Edit</div>
-            <div>Archive</div>
-            <div (click)="deleteNote(note['id'])">Delete</div>
+        <div class="notebottom">
+            <div class="noteactionbar">            
+                <div><img src="/assets/img/edit.png"></div>
+                <div><img src="/assets/img/archive.png"></div>
+                <div (click)="deleteNote(note['id'])"><img src="/assets/img/trash.png"></div>
+            </div>
+            <div class="noteidentifier">{{ note['id'] }}</div>
         </div>
     </div>
 
