@@ -19,14 +19,16 @@ import { Observable } from 'rxjs';
 export class NotesComponent {
   notes$: Observable<any>; // Observable is a variable that updates. Any could also be String, Number etc. but as it is a JSON we use "any". The $ is a mark to identify variables that update
   notes: Array<any>;
+  archivedNotes: Array<any>;
   noteheadline = '';
   notetext = '';
-  body;
+  // body;
 
   @ViewChild('closeicon') closeicon: ElementRef<HTMLElement>;
 
   constructor(private readonly firestore: Firestore) {
     this.loadNotes();
+    this.loadArchivedNotes();
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('overflowhidden');
@@ -40,6 +42,18 @@ export class NotesComponent {
       console.log('Notizen sind:', newNotes);
       this.notes = newNotes;
     });
+  }
+
+  loadArchivedNotes() {
+//     for (let i = 0; i < this.notes.length; i++) {
+//       const note = this.notes[i];
+
+//       if (note.archived) {
+// console.log('archived', note);
+
+//       }
+      
+//     }
   }
 
   addNote() {
