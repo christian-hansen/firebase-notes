@@ -21,15 +21,18 @@ export class NotesComponent {
   notes: Array<any>;
   noteheadline = '';
   notetext = '';
+  body;
 
   @ViewChild('closeicon') closeicon: ElementRef<HTMLElement>;
-  @ViewChild('editnote') editnote: ElementRef<HTMLElement>;
-  
+
   constructor(private readonly firestore: Firestore) {
-    this.load();
+    this.loadNotes();
+
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('overflowhidden');
   }
 
-  load() {
+  loadNotes() {
     const itemCollection = collection(this.firestore, 'notes');
     this.notes$ = collectionData(itemCollection);
 
@@ -57,12 +60,31 @@ export class NotesComponent {
   clickClose() {
     let el: HTMLElement = this.closeicon.nativeElement;
     el.click();
+    this.activateScroll();
   }
 
   async moveToTrash(itemID: string) {
     const noteRef = doc(this.firestore, 'notes', itemID);
     await updateDoc(noteRef, {
       deleted: true,
+    });
+  }
+
+  async updateNote(itemID: string) {
+    const noteRef = doc(this.firestore, 'notes', itemID);
+
+    await updateDoc(noteRef, {
+      title: this.noteheadline,
+      description: this.notetext,
+    });
+    this.backToList();
+  }
+
+  async archiveNote(itemID: string) {
+    const noteRef = doc(this.firestore, 'notes', itemID);
+    await updateDoc(noteRef, {
+      archived: true,
+      deleted: false
     });
   }
 
@@ -73,15 +95,19 @@ export class NotesComponent {
     const title = note['title'];
     const description = note['description'];
 
-    this.loadNoteTexts(title, description);
-
     this.openEditForm();
-    
+    this.deactivateScroll();
+    this.loadNoteTexts(title, description);
   }
 
   async deleteNote(itemID: string) {
     const note = doc(this.firestore, `notes`, itemID);
     await deleteDoc(note);
+  }
+
+  backToList() {
+    this.activateScroll();
+    this.clearInput();
   }
 
   clearInput() {
@@ -95,7 +121,14 @@ export class NotesComponent {
   }
 
   openEditForm() {
-    let el: HTMLElement = this.editnote.nativeElement;
-    el.click();
+    document.getElementById('editform').classList.remove('d-none');
+  }
+
+  deactivateScroll() {
+    document.getElementsByTagName('body')[0].classList.add('overflowhidden');
+  }
+
+  activateScroll() {
+    document.getElementsByTagName('body')[0].classList.remove('overflowhidden');
   }
 }

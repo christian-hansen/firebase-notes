@@ -11,6 +11,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.overflowhidden {
+    overflow: hidden;
+}
+
 app-root {
     position: relative;
     // min-width: 100vw;
