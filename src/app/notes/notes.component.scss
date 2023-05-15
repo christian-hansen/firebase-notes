@@ -9,7 +9,7 @@
   padding-bottom: 110px;
 }
 
-.dialog {
+.dialogbg {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -20,7 +20,7 @@
   background-color: rgba(0, 0, 0, 0.725);
   width: 100%;
   height: 100vh;
-  z-index: 1;
+  z-index: 99;
 }
 
 .dialogcontent {
@@ -38,11 +38,15 @@
 
   input,
   textarea {
-    font-size: 32px;
+    font-size: 24px;
     font-family: inherit;
     width: calc(90% - 7px);
     border: none;
     resize: none;
+  }
+
+  textarea {
+    font-size: 16px;
   }
 
   .btn-container {

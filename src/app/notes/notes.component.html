@@ -1,26 +1,29 @@
 <div class="content">
-    <button (click)="dialog.classList.remove('d-none')">Create Note</button>
+    <button #editnote (click)="dialog.classList.remove('d-none')">Create Note</button>
 
-    <div #dialog class="dialog d-none">
+    <div #dialog class="dialogbg d-none">
         <div class="dialogcontent">
             <input [(ngModel)]="noteheadline" type="text" placeholder="Enter a title">
             <textarea [(ngModel)]="notetext" placeholder="Enter a description" rows="5"></textarea>
-            <div class="btn-container"><button>Clear</button><button (click)="addNote()">Add</button></div>
-            <div class="close pointer" (click)="dialog.classList.add('d-none')">Close</div>
+            <div class="btn-container"><button (click)="clearInput()">Clear</button><button
+                    (click)="addNote()">Add</button></div>
+            <div #closeicon class="close pointer" (click)="dialog.classList.add('d-none')">Close</div>
         </div>
     </div>
 
-    <div class="notecontainer" *ngFor="let note of notes$ | async;">
-        <div class="noteheadline">{{ note['title'] }}</div>
-        <div class="notedescription">{{ note['description'] }}</div>
-        <div class="notebottom">
-            <div class="noteactionbar">            
-                <div><img src="/assets/img/edit.png"></div>
-                <div><img src="/assets/img/archive.png"></div>
-                <div (click)="deleteNote(note['id'])"><img src="/assets/img/trash.png"></div>
+    <ng-container *ngFor="let note of notes$ | async;">
+        <div class="notecontainer" *ngIf="!note['deleted']">
+            <div class="noteheadline">{{ note['title'] }}</div>
+            <div class="notedescription">{{ note['description'] }}</div>
+            <div class="notebottom">
+                <div class="noteactionbar">
+                    <div (click)="renderEditForm(note['id'])"><img src="/assets/img/edit.png"></div>
+                    <div><img src="/assets/img/archive.png"></div>
+                    <div (click)="moveToTrash(note['id'])"><img src="/assets/img/trash.png"></div>
+                </div>
+                <div class="noteidentifier">{{ note['id'] }}</div>
             </div>
-            <div class="noteidentifier">{{ note['id'] }}</div>
         </div>
-    </div>
+    </ng-container>
 
 </div>
