@@ -10,6 +10,7 @@ import {
 } from '@angular/fire/firestore';
 import { deleteDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-notes',
@@ -19,16 +20,17 @@ import { Observable } from 'rxjs';
 export class NotesComponent {
   notes$: Observable<any>; // Observable is a variable that updates. Any could also be String, Number etc. but as it is a JSON we use "any". The $ is a mark to identify variables that update
   notes: Array<any>;
-  archivedNotes: Array<any>;
+  archivedNotes = [];
   noteheadline = '';
   notetext = '';
-  // body;
+  selection = 'main';
+  
 
   @ViewChild('closeicon') closeicon: ElementRef<HTMLElement>;
 
-  constructor(private readonly firestore: Firestore) {
+  constructor(public readonly firestore: Firestore) {
+
     this.loadNotes();
-    this.loadArchivedNotes();
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('overflowhidden');
@@ -39,27 +41,30 @@ export class NotesComponent {
     this.notes$ = collectionData(itemCollection);
 
     this.notes$.subscribe((newNotes) => {
-      console.log('Notizen sind:', newNotes);
+      console.log('notes$ are:', newNotes);
+      this.loadArchivedNotes(newNotes);
+
       this.notes = newNotes;
     });
   }
 
-  loadArchivedNotes() {
-//     for (let i = 0; i < this.notes.length; i++) {
-//       const note = this.notes[i];
+  loadArchivedNotes(newNotes: any) {
+    for (let i = 0; i < newNotes.length; i++) {
+      const note = newNotes[i];
 
-//       if (note.archived) {
-// console.log('archived', note);
-
-//       }
-      
-//     }
+      if (note.archived) {
+        console.log(note);
+        this.archivedNotes.push(note);
+        console.log(this.archivedNotes);
+      }
+    }
   }
 
   addNote() {
     const itemCollection = collection(this.firestore, 'notes');
     const itemID = 'note' + JSON.stringify(this.notes.length);
     const note = {
+      archived: false,
       title: this.noteheadline,
       description: this.notetext,
       id: itemID,
@@ -98,7 +103,7 @@ export class NotesComponent {
     const noteRef = doc(this.firestore, 'notes', itemID);
     await updateDoc(noteRef, {
       archived: true,
-      deleted: false
+      deleted: false,
     });
   }
 
@@ -145,4 +150,6 @@ export class NotesComponent {
   activateScroll() {
     document.getElementsByTagName('body')[0].classList.remove('overflowhidden');
   }
+
+
 }
