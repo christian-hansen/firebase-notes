@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TwitterAuthProvider } from 'firebase/auth';
+import { Selectionservice } from '../selection.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,11 +9,17 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent{
 
-  selection = 'main';
+  inputselection: string;
+
+constructor(private selectionservice: Selectionservice) {
+
+}
 
   setSelection(input: string) {
-    this.selection = input;
-    console.log(this.selection);
-  
+    this.inputselection = input;
+    this.selectionservice.raiseDataEmitterEvent(this.inputselection);
+    console.log(this.inputselection);
+    
 }
+
 }

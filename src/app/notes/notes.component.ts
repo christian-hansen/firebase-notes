@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/core';
 import {
   Firestore,
   collectionData,
@@ -10,6 +10,7 @@ import {
 } from '@angular/fire/firestore';
 import { deleteDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
+import { Selectionservice } from '../selection.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
@@ -17,23 +18,32 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss'],
 })
-export class NotesComponent {
+@Injectable()
+export class NotesComponent implements OnInit {
   notes$: Observable<any>; // Observable is a variable that updates. Any could also be String, Number etc. but as it is a JSON we use "any". The $ is a mark to identify variables that update
   notes: Array<any>;
   archivedNotes = [];
   noteheadline = '';
   notetext = '';
-  selection = 'main';
+  selection: string = 'main';
   
 
   @ViewChild('closeicon') closeicon: ElementRef<HTMLElement>;
 
-  constructor(public readonly firestore: Firestore) {
+  constructor(public readonly firestore: Firestore, private selectionservice: Selectionservice) {
 
     this.loadNotes();
 
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('overflowhidden');
+  }
+
+  ngOnInit(): void {
+    this.selectionservice.dataEmitter.subscribe((sidebarSelection) => {
+this.selection = sidebarSelection;
+    }
+
+    )
   }
 
   loadNotes() {
